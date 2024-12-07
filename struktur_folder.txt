@@ -1,0 +1,721 @@
+D:.
+│   MVATeam1-main.zip
+│
+└───MVATeam1-main
+    │   .dockerignore
+    │   .gitignore
+    │   Dockerfile
+    │   inference_private.sh
+    │   inference_private_parallel.sh
+    │   LICENSE
+    │   Makefile
+    │   model-index.yml
+    │   pytest.ini
+    │   README.md
+    │   requirements.txt
+    │   setup.cfg
+    │   setup.py
+    │   set_lib_dir.py
+    │
+    ├───configs
+    │   ├───cascade_rcnn_mva2023
+    │   │       cascade_rcnn_r50_fpn_140e_coco.py
+    │   │       cascade_rcnn_r50_fpn_1x_coco_nwd.py
+    │   │       cascade_rcnn_r50_fpn_20e_coco_finetune_nwd_paste.py
+    │   │       cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py
+    │   │       drone_dataset.py
+    │   │       sod4bird_dataset.py
+    │   │       sod4bird_paste_dataset.py
+    │   │       sod4bird_sticker_dataset.py
+    │   │
+    │   ├───mva2023
+    │   │       cascade_mask_internimage_h_fpn_100e_coco_nwd.py
+    │   │       cascade_mask_internimage_h_fpn_40e_nwd_finetune.py
+    │   │       cascade_mask_internimage_h_fpn_40e_nwd_finetune_tta_randflip.py
+    │   │       cascade_mask_internimage_xl_fpn_100e_coco_nwd.py
+    │   │       cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.py
+    │   │       cascade_mask_internimage_xl_fpn_3x_coco.py
+    │   │       cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py
+    │   │       cascade_mask_internimage_xl_fpn_finetune.py
+    │   │       cascade_rcnn_r50_fpn_140e_coco_nwd.py
+    │   │       cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py
+    │   │       drone_dataset_crop.py
+    │   │
+    │   ├───mva2023_baseline
+    │   │       centernet_resnet18_140e_coco.py
+    │   │       centernet_resnet18_140e_coco_finetune.py
+    │   │       centernet_resnet18_140e_coco_hard_negative_training.py
+    │   │       centernet_resnet18_140e_coco_inference.py
+    │   │       centernet_resnet18_140e_coco_sample_hard_negative.py
+    │   │       centernet_resnet18_dcnv2_140e_coco.py
+    │   │       drone_dataset.py
+    │   │
+    │   └───_base_
+    │       │   default_runtime.py
+    │       │
+    │       ├───datasets
+    │       │       cityscapes_detection.py
+    │       │       cityscapes_instance.py
+    │       │       coco_detection.py
+    │       │       coco_instance.py
+    │       │       coco_instance_semantic.py
+    │       │       coco_panoptic.py
+    │       │       deepfashion.py
+    │       │       lvis_v0.5_instance.py
+    │       │       lvis_v1_instance.py
+    │       │       openimages_detection.py
+    │       │       voc0712.py
+    │       │       wider_face.py
+    │       │
+    │       ├───models
+    │       │       cascade_mask_rcnn_r50_fpn.py
+    │       │       cascade_mask_rcnn_r50_fpn_nwd.py
+    │       │       cascade_rcnn_r50_fpn.py
+    │       │       cascade_rcnn_r50_fpn_mva2023.py
+    │       │       cascade_rcnn_r50_fpn_nwd_mva2023.py
+    │       │       cascade_rcnn_r50_fpn_rfla_mva2023.py
+    │       │       cascade_rcnn_r50_hrfpn_mva2023.py
+    │       │       faster_rcnn_r50_caffe_c4.py
+    │       │       faster_rcnn_r50_caffe_dc5.py
+    │       │       faster_rcnn_r50_fpn.py
+    │       │       fast_rcnn_r50_fpn.py
+    │       │       mask_rcnn_r50_caffe_c4.py
+    │       │       mask_rcnn_r50_fpn.py
+    │       │       retinanet_r50_fpn.py
+    │       │       rpn_r50_caffe_c4.py
+    │       │       rpn_r50_fpn.py
+    │       │       ssd300.py
+    │       │
+    │       └───schedules
+    │               schedule_1x.py
+    │               schedule_20e.py
+    │               schedule_2x.py
+    │               schedule_3x.py
+    │
+    ├───data
+    │   ├───annotation
+    │   │       test.json
+    │   │       train.json
+    │   │       val.json
+    │   │
+    │   ├───test
+    │   │       Image_12485_jpg.rf.f6037293d1b4bfa42dbf0e9a43a610db.jpg
+    │   │
+    │   ├───train
+    │   │       Image_10030_jpg.rf.9fce312b6f391b2c2fb6ef38c79f85ee.jpg
+    │   │
+    │   └───valid
+    │           Image_10807_jpg.rf.224bd0a1f5084cd8da97da2d8cfa395c.jpg
+    │
+    ├───ensemble
+    │   │   config.txt
+    │   │   ensemble.py
+    │   │
+    │   └───ensemble_boxes
+    │           ensemble_boxes_wbf.py
+    │           __init__.py
+    │
+    ├───hard_neg_example_tools
+    │       test_hard_neg_example.py
+    │
+    ├───mmcv_custom
+    │       custom_layer_decay_optimizer_constructor.py
+    │       __init__.py
+    │
+    ├───mmdet
+    │   │   version.py
+    │   │   __init__.py
+    │   │
+    │   ├───apis
+    │   │       inference.py
+    │   │       test.py
+    │   │       train.py
+    │   │       __init__.py
+    │   │
+    │   ├───core
+    │   │   │   __init__.py
+    │   │   │
+    │   │   ├───anchor
+    │   │   │       anchor_generator.py
+    │   │   │       builder.py
+    │   │   │       point_generator.py
+    │   │   │       rf_generator.py
+    │   │   │       utils.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───bbox
+    │   │   │   │   builder.py
+    │   │   │   │   demodata.py
+    │   │   │   │   transforms.py
+    │   │   │   │   __init__.py
+    │   │   │   │
+    │   │   │   ├───assigners
+    │   │   │   │       approx_max_iou_assigner.py
+    │   │   │   │       assign_result.py
+    │   │   │   │       atss_assigner.py
+    │   │   │   │       base_assigner.py
+    │   │   │   │       center_region_assigner.py
+    │   │   │   │       grid_assigner.py
+    │   │   │   │       hierarchical_assigner.py
+    │   │   │   │       hungarian_assigner.py
+    │   │   │   │       mask_hungarian_assigner.py
+    │   │   │   │       max_iou_assigner.py
+    │   │   │   │       nwd_assigner.py
+    │   │   │   │       point_assigner.py
+    │   │   │   │       ranking_assigner.py
+    │   │   │   │       region_assigner.py
+    │   │   │   │       sim_ota_assigner.py
+    │   │   │   │       task_aligned_assigner.py
+    │   │   │   │       uniform_assigner.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   ├───coder
+    │   │   │   │       base_bbox_coder.py
+    │   │   │   │       bucketing_bbox_coder.py
+    │   │   │   │       delta_xywh_bbox_coder.py
+    │   │   │   │       distance_point_bbox_coder.py
+    │   │   │   │       legacy_delta_xywh_bbox_coder.py
+    │   │   │   │       pseudo_bbox_coder.py
+    │   │   │   │       tblr_bbox_coder.py
+    │   │   │   │       yolo_bbox_coder.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   ├───iou_calculators
+    │   │   │   │       builder.py
+    │   │   │   │       iou2d_calculator.py
+    │   │   │   │       metrix_calculator.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   ├───match_costs
+    │   │   │   │       builder.py
+    │   │   │   │       match_cost.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   └───samplers
+    │   │   │           base_sampler.py
+    │   │   │           combined_sampler.py
+    │   │   │           instance_balanced_pos_sampler.py
+    │   │   │           iou_balanced_neg_sampler.py
+    │   │   │           mask_pseudo_sampler.py
+    │   │   │           mask_sampling_result.py
+    │   │   │           ohem_sampler.py
+    │   │   │           pseudo_sampler.py
+    │   │   │           random_sampler.py
+    │   │   │           sampling_result.py
+    │   │   │           score_hlr_sampler.py
+    │   │   │           __init__.py
+    │   │   │
+    │   │   ├───data_structures
+    │   │   │       general_data.py
+    │   │   │       instance_data.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───evaluation
+    │   │   │       bbox_overlaps.py
+    │   │   │       class_names.py
+    │   │   │       eval_hooks.py
+    │   │   │       mean_ap.py
+    │   │   │       panoptic_utils.py
+    │   │   │       recall.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───export
+    │   │   │       model_wrappers.py
+    │   │   │       onnx_helper.py
+    │   │   │       pytorch2onnx.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───hook
+    │   │   │       checkloss_hook.py
+    │   │   │       ema.py
+    │   │   │       memory_profiler_hook.py
+    │   │   │       set_epoch_info_hook.py
+    │   │   │       sync_norm_hook.py
+    │   │   │       sync_random_size_hook.py
+    │   │   │       yolox_lrupdater_hook.py
+    │   │   │       yolox_mode_switch_hook.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───mask
+    │   │   │       mask_target.py
+    │   │   │       structures.py
+    │   │   │       utils.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───post_processing
+    │   │   │       bbox_nms.py
+    │   │   │       matrix_nms.py
+    │   │   │       merge_augs.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───utils
+    │   │   │       dist_utils.py
+    │   │   │       misc.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   └───visualization
+    │   │           image.py
+    │   │           palette.py
+    │   │           __init__.py
+    │   │
+    │   ├───datasets
+    │   │   │   builder.py
+    │   │   │   cityscapes.py
+    │   │   │   coco.py
+    │   │   │   coco_panoptic.py
+    │   │   │   custom.py
+    │   │   │   dataset_wrappers.py
+    │   │   │   deepfashion.py
+    │   │   │   drone.py
+    │   │   │   lvis.py
+    │   │   │   openimages.py
+    │   │   │   utils.py
+    │   │   │   voc.py
+    │   │   │   wider_face.py
+    │   │   │   xml_style.py
+    │   │   │   __init__.py
+    │   │   │
+    │   │   ├───api_wrappers
+    │   │   │       coco_api.py
+    │   │   │       panoptic_evaluation.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───pipelines
+    │   │   │       auto_augment.py
+    │   │   │       compose.py
+    │   │   │       formating.py
+    │   │   │       formatting.py
+    │   │   │       instaboost.py
+    │   │   │       loading.py
+    │   │   │       test_time_aug.py
+    │   │   │       transforms.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   └───samplers
+    │   │           class_aware_sampler.py
+    │   │           distributed_sampler.py
+    │   │           group_sampler.py
+    │   │           infinite_sampler.py
+    │   │           __init__.py
+    │   │
+    │   ├───models
+    │   │   │   builder.py
+    │   │   │   __init__.py
+    │   │   │
+    │   │   ├───backbones
+    │   │   │       csp_darknet.py
+    │   │   │       darknet.py
+    │   │   │       detectors_resnet.py
+    │   │   │       detectors_resnext.py
+    │   │   │       efficientnet.py
+    │   │   │       hourglass.py
+    │   │   │       hrnet.py
+    │   │   │       mobilenet_v2.py
+    │   │   │       pvt.py
+    │   │   │       regnet.py
+    │   │   │       res2net.py
+    │   │   │       resnest.py
+    │   │   │       resnet.py
+    │   │   │       resnext.py
+    │   │   │       ssd_vgg.py
+    │   │   │       swin.py
+    │   │   │       trident_resnet.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───dense_heads
+    │   │   │       anchor_free_head.py
+    │   │   │       anchor_head.py
+    │   │   │       atss_head.py
+    │   │   │       autoassign_head.py
+    │   │   │       base_dense_head.py
+    │   │   │       base_mask_head.py
+    │   │   │       cascade_rpn_head.py
+    │   │   │       centernet_head.py
+    │   │   │       centripetal_head.py
+    │   │   │       corner_head.py
+    │   │   │       deformable_detr_head.py
+    │   │   │       dense_test_mixins.py
+    │   │   │       detr_head.py
+    │   │   │       embedding_rpn_head.py
+    │   │   │       fcos_head.py
+    │   │   │       fovea_head.py
+    │   │   │       free_anchor_retina_head.py
+    │   │   │       fsaf_head.py
+    │   │   │       ga_retina_head.py
+    │   │   │       ga_rpn_head.py
+    │   │   │       gfl_head.py
+    │   │   │       guided_anchor_head.py
+    │   │   │       lad_head.py
+    │   │   │       ld_head.py
+    │   │   │       mask2former_head.py
+    │   │   │       maskformer_head.py
+    │   │   │       nasfcos_head.py
+    │   │   │       paa_head.py
+    │   │   │       pisa_retinanet_head.py
+    │   │   │       pisa_ssd_head.py
+    │   │   │       reppoints_head.py
+    │   │   │       retina_head.py
+    │   │   │       retina_sepbn_head.py
+    │   │   │       rpn_head.py
+    │   │   │       sabl_retina_head.py
+    │   │   │       solo_head.py
+    │   │   │       ssd_head.py
+    │   │   │       tood_head.py
+    │   │   │       vfnet_head.py
+    │   │   │       yolact_head.py
+    │   │   │       yolof_head.py
+    │   │   │       yolox_head.py
+    │   │   │       yolo_head.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───detectors
+    │   │   │       atss.py
+    │   │   │       autoassign.py
+    │   │   │       base.py
+    │   │   │       cascade_rcnn.py
+    │   │   │       centernet.py
+    │   │   │       cornernet.py
+    │   │   │       deformable_detr.py
+    │   │   │       detr.py
+    │   │   │       faster_rcnn.py
+    │   │   │       fast_rcnn.py
+    │   │   │       fcos.py
+    │   │   │       fovea.py
+    │   │   │       fsaf.py
+    │   │   │       gfl.py
+    │   │   │       grid_rcnn.py
+    │   │   │       htc.py
+    │   │   │       kd_one_stage.py
+    │   │   │       lad.py
+    │   │   │       mask2former.py
+    │   │   │       maskformer.py
+    │   │   │       mask_rcnn.py
+    │   │   │       mask_scoring_rcnn.py
+    │   │   │       nasfcos.py
+    │   │   │       paa.py
+    │   │   │       panoptic_fpn.py
+    │   │   │       panoptic_two_stage_segmentor.py
+    │   │   │       point_rend.py
+    │   │   │       queryinst.py
+    │   │   │       reppoints_detector.py
+    │   │   │       retinanet.py
+    │   │   │       rpn.py
+    │   │   │       scnet.py
+    │   │   │       single_stage.py
+    │   │   │       single_stage_instance_seg.py
+    │   │   │       solo.py
+    │   │   │       sparse_rcnn.py
+    │   │   │       tood.py
+    │   │   │       trident_faster_rcnn.py
+    │   │   │       two_stage.py
+    │   │   │       vfnet.py
+    │   │   │       yolact.py
+    │   │   │       yolo.py
+    │   │   │       yolof.py
+    │   │   │       yolox.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───losses
+    │   │   │       accuracy.py
+    │   │   │       ae_loss.py
+    │   │   │       balanced_l1_loss.py
+    │   │   │       cross_entropy_loss.py
+    │   │   │       dice_loss.py
+    │   │   │       focal_loss.py
+    │   │   │       gaussian_focal_loss.py
+    │   │   │       gfocal_loss.py
+    │   │   │       ghm_loss.py
+    │   │   │       iou_loss.py
+    │   │   │       kd_loss.py
+    │   │   │       mse_loss.py
+    │   │   │       pisa_loss.py
+    │   │   │       seesaw_loss.py
+    │   │   │       smooth_l1_loss.py
+    │   │   │       utils.py
+    │   │   │       varifocal_loss.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───necks
+    │   │   │       bfp.py
+    │   │   │       channel_mapper.py
+    │   │   │       ct_resnet_neck.py
+    │   │   │       dilated_encoder.py
+    │   │   │       dyhead.py
+    │   │   │       fpg.py
+    │   │   │       fpn.py
+    │   │   │       fpn_carafe.py
+    │   │   │       hrfpn.py
+    │   │   │       nasfcos_fpn.py
+    │   │   │       nas_fpn.py
+    │   │   │       pafpn.py
+    │   │   │       rfp.py
+    │   │   │       ssd_neck.py
+    │   │   │       yolox_pafpn.py
+    │   │   │       yolo_neck.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───plugins
+    │   │   │       dropblock.py
+    │   │   │       msdeformattn_pixel_decoder.py
+    │   │   │       pixel_decoder.py
+    │   │   │       __init__.py
+    │   │   │
+    │   │   ├───roi_heads
+    │   │   │   │   base_roi_head.py
+    │   │   │   │   cascade_roi_head.py
+    │   │   │   │   double_roi_head.py
+    │   │   │   │   dynamic_roi_head.py
+    │   │   │   │   grid_roi_head.py
+    │   │   │   │   htc_roi_head.py
+    │   │   │   │   mask_scoring_roi_head.py
+    │   │   │   │   pisa_roi_head.py
+    │   │   │   │   point_rend_roi_head.py
+    │   │   │   │   scnet_roi_head.py
+    │   │   │   │   sparse_roi_head.py
+    │   │   │   │   standard_roi_head.py
+    │   │   │   │   test_mixins.py
+    │   │   │   │   trident_roi_head.py
+    │   │   │   │   __init__.py
+    │   │   │   │
+    │   │   │   ├───bbox_heads
+    │   │   │   │       bbox_head.py
+    │   │   │   │       convfc_bbox_head.py
+    │   │   │   │       dii_head.py
+    │   │   │   │       double_bbox_head.py
+    │   │   │   │       sabl_head.py
+    │   │   │   │       scnet_bbox_head.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   ├───mask_heads
+    │   │   │   │       coarse_mask_head.py
+    │   │   │   │       dynamic_mask_head.py
+    │   │   │   │       fcn_mask_head.py
+    │   │   │   │       feature_relay_head.py
+    │   │   │   │       fused_semantic_head.py
+    │   │   │   │       global_context_head.py
+    │   │   │   │       grid_head.py
+    │   │   │   │       htc_mask_head.py
+    │   │   │   │       maskiou_head.py
+    │   │   │   │       mask_point_head.py
+    │   │   │   │       scnet_mask_head.py
+    │   │   │   │       scnet_semantic_head.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   ├───roi_extractors
+    │   │   │   │       base_roi_extractor.py
+    │   │   │   │       generic_roi_extractor.py
+    │   │   │   │       single_level_roi_extractor.py
+    │   │   │   │       __init__.py
+    │   │   │   │
+    │   │   │   └───shared_heads
+    │   │   │           res_layer.py
+    │   │   │           __init__.py
+    │   │   │
+    │   │   ├───seg_heads
+    │   │   │   │   base_semantic_head.py
+    │   │   │   │   panoptic_fpn_head.py
+    │   │   │   │   __init__.py
+    │   │   │   │
+    │   │   │   └───panoptic_fusion_heads
+    │   │   │           base_panoptic_fusion_head.py
+    │   │   │           heuristic_fusion_head.py
+    │   │   │           maskformer_fusion_head.py
+    │   │   │           __init__.py
+    │   │   │
+    │   │   └───utils
+    │   │           brick_wrappers.py
+    │   │           builder.py
+    │   │           ckpt_convert.py
+    │   │           conv_upsample.py
+    │   │           csp_layer.py
+    │   │           gaussian_target.py
+    │   │           inverted_residual.py
+    │   │           make_divisible.py
+    │   │           misc.py
+    │   │           normed_predictor.py
+    │   │           panoptic_gt_processing.py
+    │   │           point_sample.py
+    │   │           positional_encoding.py
+    │   │           res_layer.py
+    │   │           se_layer.py
+    │   │           transformer.py
+    │   │           __init__.py
+    │   │
+    │   └───utils
+    │           collect_env.py
+    │           compat_config.py
+    │           contextmanagers.py
+    │           logger.py
+    │           misc.py
+    │           profiling.py
+    │           setup_env.py
+    │           split_batch.py
+    │           util_distribution.py
+    │           util_mixins.py
+    │           util_random.py
+    │           __init__.py
+    │
+    ├───mmdet_custom
+    │   │   __init__.py
+    │   │
+    │   ├───datasets
+    │   │       crowd_human.py
+    │   │       __init__.py
+    │   │
+    │   └───models
+    │       │   __init__.py
+    │       │
+    │       └───backbones
+    │               intern_image.py
+    │               __init__.py
+    │
+    ├───ops_dcnv3
+    │   │   make.sh
+    │   │   setup.py
+    │   │   test.py
+    │   │
+    │   ├───functions
+    │   │       dcnv3_func.py
+    │   │       __init__.py
+    │   │
+    │   ├───modules
+    │   │       dcnv3.py
+    │   │       __init__.py
+    │   │
+    │   └───src
+    │       │   dcnv3.h
+    │       │   vision.cpp
+    │       │
+    │       ├───cpu
+    │       │       dcnv3_cpu.cpp
+    │       │       dcnv3_cpu.h
+    │       │
+    │       └───cuda
+    │               dcnv3_cuda.cu
+    │               dcnv3_cuda.h
+    │               dcnv3_im2col_cuda.cuh
+    │
+    ├───requirements
+    │       albu.txt
+    │       build.txt
+    │       docs.txt
+    │       mminstall.txt
+    │       optional.txt
+    │       readthedocs.txt
+    │       runtime.txt
+    │       sahi.txt
+    │       tests.txt
+    │
+    ├───sahi
+    │   │   annotation.py
+    │   │   auto_model.py
+    │   │   cli.py
+    │   │   predict.py
+    │   │   prediction.py
+    │   │   slicing.py
+    │   │   __init__.py
+    │   │
+    │   ├───models
+    │   │       base.py
+    │   │       detectron2.py
+    │   │       huggingface.py
+    │   │       mmdet.py
+    │   │       torchvision.py
+    │   │       yolov5.py
+    │   │       yolov5sparse.py
+    │   │       yolov8.py
+    │   │       __init__.py
+    │   │
+    │   ├───postprocess
+    │   │   │   combine.py
+    │   │   │   utils.py
+    │   │   │   __init__.py
+    │   │   │
+    │   │   └───legacy
+    │   │           combine.py
+    │   │           __init__.py
+    │   │
+    │   ├───scripts
+    │   │       coco2fiftyone.py
+    │   │       coco2yolov5.py
+    │   │       coco_error_analysis.py
+    │   │       coco_evaluation.py
+    │   │       predict.py
+    │   │       predict_fiftyone.py
+    │   │       slice_coco.py
+    │   │       __init__.py
+    │   │
+    │   └───utils
+    │           coco.py
+    │           compatibility.py
+    │           cv.py
+    │           detectron2.py
+    │           fiftyone.py
+    │           file.py
+    │           huggingface.py
+    │           import_utils.py
+    │           mmdet.py
+    │           shapely.py
+    │           sparseyolov5.py
+    │           torch.py
+    │           torchvision.py
+    │           versions.py
+    │           yolov5.py
+    │           yolov8.py
+    │           __init__.py
+    │
+    └───tools
+        │   baseline_dist_train_test.sh
+        │   baseline_train_test.sh
+        │   cmp_result.py
+        │   dist_test.sh
+        │   dist_train.sh
+        │   sahi_evaluation.py
+        │   sahi_evaluation_ompi.py
+        │   sahi_evaluation_slurm.py
+        │   show_test_results.py
+        │   slurm_sahi_parallel.sh
+        │   test.py
+        │   train.py
+        │
+        ├───analysis_tools
+        │       analyze_logs.py
+        │       analyze_results.py
+        │       benchmark.py
+        │       coco_error_analysis.py
+        │       confusion_matrix.py
+        │       eval_metric.py
+        │       get_flops.py
+        │       optimize_anchors.py
+        │       robustness_eval.py
+        │       test_robustness.py
+        │
+        ├───dataset_converters
+        │       cityscapes.py
+        │       images2coco.py
+        │       pascal_voc.py
+        │
+        ├───deployment
+        │       mmdet2torchserve.py
+        │       mmdet_handler.py
+        │       onnx2tensorrt.py
+        │       pytorch2onnx.py
+        │       test.py
+        │       test_torchserver.py
+        │
+        ├───misc
+        │       browse_dataset.py
+        │       crop_bbox_img.py
+        │       download_dataset.py
+        │       gen_coco_panoptic_test_info.py
+        │       get_image_metas.py
+        │       print_config.py
+        │       split_coco.py
+        │
+        └───model_converters
+                detectron2pytorch.py
+                publish_model.py
+                regnet2mmdet.py
+                selfsup2mmdet.py
+                upgrade_model_version.py
+                upgrade_ssd_version.py
