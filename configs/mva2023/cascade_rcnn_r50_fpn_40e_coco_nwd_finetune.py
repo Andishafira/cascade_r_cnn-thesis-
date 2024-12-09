@@ -1,6 +1,6 @@
 from set_lib_dir import LIB_ROOT_DIR
-_base_ = './cascade_rcnn_r50_fpn_140e_coco_nwd.py'
-data_root = LIB_ROOT_DIR + '/data/'
+_base_ = '/content/cascade_r_cnn-thesis-/config/mva2023/cascade_rcnn_r50_fpn_140e_coco_nwd.py'
+data_root = '/content/cascade_r_cnn-thesis-/data/'
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -41,7 +41,7 @@ data = dict(
 )        
 runner = dict(max_epochs=40)
 
-load_from = LIB_ROOT_DIR + '/work_dirs/cascade_rcnn_r50_fpn_140e_coco_nwd/latest.pth'
+load_from = LIB_ROOT_DIR + '/content/cascade_r_cnn-thesis-/work_dirs/cascade_rcnn_r50_fpn_140e_coco_nwd/latest.pth'
 
 log_config = dict(
     interval=100,
